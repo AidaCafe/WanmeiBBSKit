@@ -1,3 +1,6 @@
+__all__ = ['TigerAPPConsts', 'Salts']
+
+
 class TigerAPPConsts:
     BUILD_VERSION = 105
     VERSION = "9.0.5"
@@ -12,3 +15,8 @@ class TigerAPPConsts:
                       'i1tUmJ2V/4aprHrYPcjWSePd38a0p4zSnMMmz12/Pe/rayByKr3yr6IDSPkGQJBAISXLXeTCtJazNfCXybpyHu2qvHf' \
                       '/jq8pMra5r2kV/Z537/kMrpALhAnlg+Mi8K2irMSKuk2qYykJsKBUB+RWZUCQHCllOjamM7aULR58G0zypMR1UuOFtPS' \
                       'smnkCe8fdGl0gtFsP7LzkLHvnm+kIy3JiHWyCo4qd6Pw5DpoNGLEn+M='
+
+
+class Salts:
+    COMMON = "92571fb8d37a4d1d31490b49e0888ff2"
+    ZX2 = "264d4a7ec75e4a268ee01345e7c154a2"

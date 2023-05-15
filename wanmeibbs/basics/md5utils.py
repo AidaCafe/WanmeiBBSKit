@@ -1,6 +1,8 @@
 import hashlib
 from typing import Any, Mapping, Optional
 
+from wanmeibbs.consts import Salts
+
 
 class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
     @staticmethod
@@ -10,7 +12,7 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         :param params_string:
         :return: 哈希结果
         """
-        return MD5Utils.hashParamsString(salt='264d4a7ec75e4a268ee01345e7c154a2', params_string=params_string)
+        return MD5Utils.hashParamsString(salt=Salts.COMMON, params_string=params_string)
 
     @staticmethod
     def hashParamsString(salt: str, params_string: str) -> str:  # h.b
@@ -41,7 +43,7 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         :param params: 待哈希参数
         :return: 哈希结果
         """
-        return MD5Utils.hashParams(salt='264d4a7ec75e4a268ee01345e7c154a2', params=params)
+        return MD5Utils.hashParams(salt=Salts.COMMON, params=params)
 
     @staticmethod
     def md5Sign(text: str) -> str:  # h.e
