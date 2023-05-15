@@ -3,11 +3,12 @@ from typing import Optional
 from pydantic import Field
 
 from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.models import CompactJsonModel
+from wanmeibbs.models import AllStringCompactJsonModel
 
 
-class DeviceInfo(CompactJsonModel):
-    build_version: Optional[True] = Field(TigerAPPConsts.BUILD_VERSION, alias="buildVersion", const=True, description="构建版本号")
+class DeviceInfo(AllStringCompactJsonModel):
+    build_version: Optional[True] = Field(TigerAPPConsts.BUILD_VERSION, alias="buildVersion", const=True,
+                                          description="构建版本号")
     system_version: int = Field(..., alias="phoneSystemVersion", description="系统版本")
     model: str = Field(..., alias="device_model", description="设备型号")
     device_type: str = Field(..., description="设备生产厂商")
