@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "wanmeibbskit"
+version = "0.1.0"
+description = "Rev. request library from WanmeiBBS"
+authors = ["Wansn <2632324507@qq.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+httpx = "^0.24.0"
+cryptography = "^40.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
