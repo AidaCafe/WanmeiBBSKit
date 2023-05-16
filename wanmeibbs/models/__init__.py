@@ -1,4 +1,5 @@
 import json
+from enum import Enum
 from typing import cast
 from typing import (
     AbstractSet,
@@ -10,12 +11,10 @@ from typing import (
 
 from pydantic import BaseModel
 
-from .device_info import DeviceInfo
 
 __all__ = [
     'CompactJsonModel',
     'AllStringCompactJsonModel',
-    'DeviceInfo'
 ]
 
 
@@ -57,6 +56,8 @@ class AllStringCompactJsonModel(CompactJsonModel):
         )
         for k, v in dict_.items():
             if isinstance(v, int):
+                if isinstance(v, Enum):
+                    v = v.value
                 dict_[k] = str(v)
 
         encoder = cast(Callable[[Any], Any], encoder or self.__json_encoder__)
