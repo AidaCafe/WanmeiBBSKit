@@ -54,7 +54,7 @@ class Sha1Utils:
         对URL参数字符串进行SHA-1签名处理
         :param params: 待签名参数
         :param b64_private_key: base64格式私钥
-        :return:
+        :return: 签名结果
         """
         return Sha1Utils.signature(
             '&'.join(sorted(params.split('&'))),
