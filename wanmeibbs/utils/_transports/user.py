@@ -37,7 +37,6 @@ class AsyncUserMgrTransport(AsyncHTTPTransport):
         params_ = Params(request.url.params)
         current_time = timestamp()
         params_ = params_.merge({
-            "timestamp": current_time,
             "deviceType": self.device_info.model,
             "deviceId": self.device_info.device_id,
             "deviceName": self.device_info.model,
@@ -87,7 +86,6 @@ class UserMgrTransport(HTTPTransport):
         params_ = Params(request.url.params)
         current_time = timestamp()
         params_ = params_.merge({
-            "timestamp": current_time,
             "deviceType": self.device_info.model,
             "deviceId": self.device_info.device_id,
             "deviceName": self.device_info.model,

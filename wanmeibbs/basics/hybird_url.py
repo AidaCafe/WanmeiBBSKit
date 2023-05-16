@@ -2,6 +2,7 @@ from wanmeibbs.utils import URL
 
 
 PWCGAPI = URL('https://pwgcapi.wanmei.com/')
+USERAPI = URL('https://user.laohu.com/')
 TOKEN_TO_COOKIE = URL('http://i.laohu.com/tokenToCookie?')
 
 PROD_ZXSJ = URL('zxsj.wanmei.com')
