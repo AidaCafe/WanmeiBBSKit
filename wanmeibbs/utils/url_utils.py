@@ -49,7 +49,6 @@ class Params(httpx.QueryParams):
     def __and__(self, other):
         if not (isinstance(other, httpx.QueryParams) or isinstance(other, Params)):
             other = Params(other)
-        other: Params
         params_ = Params()
         for param_k, param_v in other.multi_items():
             params_ = params_.add(param_k, param_v)
