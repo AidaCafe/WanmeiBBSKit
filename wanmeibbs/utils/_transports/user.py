@@ -43,12 +43,10 @@ class AsyncUserMgrTransport(AsyncHTTPTransport):
             "deviceName": self.device_info.model,
             "versionCode": TigerAPPConsts.VERSION,
             "t": current_time,
-            "appId": self.device_info.app_id,
             "deviceSys": self.device_info.system_version,
             "deviceModel": self.device_info.model,
             "sdkVersion": TigerAPPConsts.SDK_VERSION,
             "bid": TigerAPPConsts.PACKAGE_NAME,
-            "channelId": self.device_info.channel_id
         })
         if not params_.get('appId'):
             params_ = params_ & f'appId={self.device_info.app_id}'
@@ -95,12 +93,10 @@ class UserMgrTransport(HTTPTransport):
             "deviceName": self.device_info.model,
             "versionCode": TigerAPPConsts.VERSION,
             "t": current_time,
-            "appId": self.device_info.app_id,
             "deviceSys": self.device_info.system_version,
             "deviceModel": self.device_info.model,
             "sdkVersion": TigerAPPConsts.SDK_VERSION,
             "bid": TigerAPPConsts.PACKAGE_NAME,
-            "channelId": self.device_info.channel_id
         })
         if not params_.get('appId'):
             params_ = params_ & f'appId={self.device_info.app_id}'

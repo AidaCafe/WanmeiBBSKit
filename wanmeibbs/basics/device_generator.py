@@ -3,6 +3,7 @@ from binascii import hexlify
 from functools import cache
 from os import urandom
 from string import ascii_uppercase, digits
+from typing import Optional
 
 from wanmeibbs.consts import TigerAPPConsts
 from wanmeibbs.models.device_info import DeviceInfo
@@ -48,7 +49,7 @@ class DeviceInfoGenerator:
 def get_rand_device(
         app_id: int,
         channel_id: int,
-        sub_app_id: str = TigerAPPConsts.PACKAGE_NAME
+        sub_app_id: Optional[str] = TigerAPPConsts.PACKAGE_NAME
 ) -> DeviceInfo:
     return DeviceInfo(
         **DeviceInfoGenerator.generate(),
