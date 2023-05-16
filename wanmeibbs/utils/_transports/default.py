@@ -7,16 +7,12 @@ from httpx import Request, Response
 from wanmeibbs.basics import Sha1Utils
 from wanmeibbs.basics.device_generator import get_rand_device
 from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.utils import Params
+from wanmeibbs.utils import timestamp, Params
 
 __all__ = [
     'TigerTransport',
     'AsyncTigerTransport'
 ]
-
-
-def timestamp():
-    return int(time.time())
 
 
 class AsyncTigerTransport(AsyncHTTPTransport):
