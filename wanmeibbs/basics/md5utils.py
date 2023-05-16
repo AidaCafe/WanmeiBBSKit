@@ -3,6 +3,8 @@ from typing import Any, Mapping, Optional
 
 from wanmeibbs.consts import Salts
 
+__all__ = ['MD5Utils']
+
 
 class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
     @staticmethod
@@ -22,7 +24,14 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         :param params_string: 待哈希参数
         :return: 哈希结果
         """
-        return MD5Utils.md5Sign('&'.join(sorted(params_string.split('&'))) + salt)
+        text = ''.join(
+                param_.split('=')[1] for param_ in
+                sorted(params_string.split('&'))
+            )
+        print(text)
+        return MD5Utils.md5Hash(
+            text + salt
+        )
 
     @staticmethod
     def hashParams(salt: str, params: Mapping[str, Any]) -> str:  # h.c
@@ -32,8 +41,8 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         :param params:
         :return: 哈希结果
         """
-        return MD5Utils.md5Sign(
-            text='&'.join(sorted(f'{k}={v}' for k, v in params.items())) + salt
+        return MD5Utils.md5Hash(
+            text=''.join(param_[1] for param_ in sorted(params.items(), key=lambda x: x[0])) + salt
         )
 
     @staticmethod
@@ -46,7 +55,7 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         return MD5Utils.hashParams(salt=Salts.COMMON, params=params)
 
     @staticmethod
-    def md5Sign(text: str) -> str:  # h.e
+    def md5Hash(text: str) -> str:  # h.e
         """
         使用MD5对数据进行哈希处理
         :param text: 待哈希数据

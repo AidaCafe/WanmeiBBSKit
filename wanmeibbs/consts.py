@@ -4,6 +4,7 @@ __all__ = ['TigerAPPConsts', 'Salts']
 class TigerAPPConsts:
     BUILD_VERSION = 105
     VERSION = "9.0.5"
+    SDK_VERSION = "4.11.16"
     PACKAGE_NAME = "com.wanmei.tiger"
     RSA_PRIVATE_KEY = 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAI7SudgmnjTvlyDUJyp/DTRpJepp470saXB/' \
                       'Nfs6kBWBtETA3TyanlHt5dT4SZrO/QRAAjarZLZ5Mzf4A2gEbDSQ1P0B0qkjQLbqGHzHPLfBQCqVB2d0YmUTK' \
@@ -20,3 +21,4 @@ class TigerAPPConsts:
 class Salts:
     COMMON = "92571fb8d37a4d1d31490b49e0888ff2"
     ZX2 = "264d4a7ec75e4a268ee01345e7c154a2"
+    ZXSJ = "b933f271a91f43948bb395095038b8c7"
