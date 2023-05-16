@@ -1,6 +1,5 @@
-from wanmeibbs.consts import TigerAPPConsts
 from wanmeibbs.basics.sha1utils import Sha1Utils
-
+from wanmeibbs.consts import TigerAPPConsts
 
 if __name__ == "__main__":
     params = 'circleId=1&deviceInfo={"buildVersion":"105","phoneSystemVersion":"13","device_model":"M2102J2SC",' \
