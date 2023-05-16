@@ -18,7 +18,7 @@ class Sha1Utils:
     @staticmethod
     def signature(data: str, private_key: RSAPrivateKey) -> str:  # com.wanmei.basic.e.s.a
         """
-        签名数据
+        对数据进行SHA-1签名处理
         :param data: 待签名数据
         :param private_key: 私钥
         :return: 签名结果
@@ -33,7 +33,7 @@ class Sha1Utils:
     @staticmethod
     def signParams(params: dict, b64_private_key: str) -> str:  # com.wanmei.basic.e.s.c
         """
-        签名参数
+        对URL参数字典进行SHA-1签名处理
         :param params: 待签名参数
         :param b64_private_key: base64格式私钥
         :return: 签名结果
@@ -50,6 +50,12 @@ class Sha1Utils:
 
     @staticmethod
     def signParamsString(params: str, b64_private_key: str) -> str:  # com.wanmei.basic.e.s.b
+        """
+        对URL参数字符串进行SHA-1签名处理
+        :param params: 待签名参数
+        :param b64_private_key: base64格式私钥
+        :return:
+        """
         return Sha1Utils.signature(
             '&'.join(sorted(params.split('&'))),
             Sha1Utils.loadPrivateKey(b64_private_key)
