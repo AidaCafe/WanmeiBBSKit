@@ -41,6 +41,11 @@ class Params(httpx.QueryParams):
                 pass
         return Params(super().add(key=key, value=value))
 
+    def merge(self, params: Optional[QueryParamTypes] = None) -> "Params":
+        q = Params(params)
+        q._dict = {**self._dict, **q._dict}
+        return q
+
     def __and__(self, other):
         if not (isinstance(other, httpx.QueryParams) or isinstance(other, Params)):
             other = Params(other)
