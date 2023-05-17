@@ -1,7 +1,7 @@
 import hashlib
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping
 
-from wanmeibbs.consts import Salts
+from wanmeibbskit.consts import Salts
 
 __all__ = ['MD5Utils']
 

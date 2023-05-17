@@ -6,7 +6,8 @@ import orjson
 
 PrimitiveData = Optional[Union[str, int, float, bool]]
 QueryParamTypes = Union[
-    "QueryParams",
+    "Params",
+    httpx.QueryParams,
     Mapping[str, Union[PrimitiveData, Sequence[PrimitiveData]]],
     List[Tuple[str, PrimitiveData]],
     Tuple[Tuple[str, PrimitiveData], ...],

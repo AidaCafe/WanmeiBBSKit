@@ -3,8 +3,8 @@ from typing import Optional
 
 from pydantic import Field
 
-from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.models import AllStringCompactJsonModel
+from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.models import AllStringCompactJsonModel
 
 __all__ = [
     'DeviceBrands',

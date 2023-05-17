@@ -3,9 +3,8 @@ from typing import Optional
 
 from httpx import AsyncClient
 
-from wanmeibbs.basics import HYBRID_URL
-
-from wanmeibbs.utils import AsyncUserMgrTransport
+from wanmeibbskit.basics import HYBRID_URL
+from wanmeibbskit.utils import AsyncUserMgrTransport
 
 __all__ = ['SmsLoginSession']
 
@@ -30,7 +29,7 @@ class SmsLoginSession:
         self.phone_number = phone_number
         self.login_type = login_type
         self.area_code_id = area_code_id
-        self.client = AsyncClient.__init__(**client_kwargs)
+        self.client = AsyncClient(**client_kwargs)
 
     async def send_sms(self) -> bool:
         resp_ = await self.client.post(

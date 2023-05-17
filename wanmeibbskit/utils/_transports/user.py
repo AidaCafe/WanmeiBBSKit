@@ -3,10 +3,10 @@ from typing import Optional
 from httpx import AsyncHTTPTransport, HTTPTransport
 from httpx import Request, Response
 
-from wanmeibbs.basics import MD5Utils
-from wanmeibbs.basics.device_generator import get_rand_device
-from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.utils import Params, timestamp
+from wanmeibbskit.basics import MD5Utils
+from wanmeibbskit.basics.device_generator import get_rand_device
+from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.utils import Params, timestamp
 
 __all__ = [
     'UserMgrTransport',
@@ -70,15 +70,17 @@ class UserMgrTransport(HTTPTransport):
             self,
             app_id: Optional[int] = 10021,
             channel_id: Optional[int] = 1991,
-            sub_app_id: Optional[str] = TigerAPPConsts.PACKAGE_NAME,
-            user_agent: Optional[str] = 'okhttp/4.9.0',
+            user_agent: Optional[str] = None,
             **kwargs
     ):
         self.device_info = get_rand_device(
             app_id=app_id,
             channel_id=channel_id,
-            sub_app_id=sub_app_id
         )
+        if not user_agent:
+            user_agent = f'LaohuSDK/{TigerAPPConsts.SDK_VERSION} ' \
+                         f'({self.device_info.os.name.lower()} os {self.device_info.system_version};' \
+                         f'mobile  manufacturer {self.device_info.device_type}; model {self.device_info.model})'
         self.user_agent = user_agent
         super().__init__(**kwargs)
 

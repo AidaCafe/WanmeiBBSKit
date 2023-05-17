@@ -5,10 +5,10 @@ from os import urandom
 from string import ascii_uppercase, digits
 from typing import Optional
 
-from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.models.device_info import DeviceInfo
-from wanmeibbs.models.device_info import DeviceBrands
-from wanmeibbs.models.device_info import OSType, OSVersionRange
+from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.models.device_info import DeviceInfo
+from wanmeibbskit.models.device_info import DeviceBrands
+from wanmeibbskit.models.device_info import OSType, OSVersionRange
 
 RAND_CHARS = f'{ascii_uppercase}{digits}'
 
@@ -49,8 +49,10 @@ class DeviceInfoGenerator:
 def get_rand_device(
         app_id: int,
         channel_id: int,
-        sub_app_id: Optional[str] = TigerAPPConsts.PACKAGE_NAME
+        sub_app_id: Optional[str] = None
 ) -> DeviceInfo:
+    if not sub_app_id:
+        sub_app_id = TigerAPPConsts.PACKAGE_NAME
     return DeviceInfo(
         **DeviceInfoGenerator.generate(),
         appId=app_id,

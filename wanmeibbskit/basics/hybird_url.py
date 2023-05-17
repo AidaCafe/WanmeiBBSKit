@@ -1,4 +1,4 @@
-from wanmeibbs.utils import URL
+from wanmeibbskit.utils import URL
 
 
 PWCGAPI = URL('https://pwgcapi.wanmei.com/')

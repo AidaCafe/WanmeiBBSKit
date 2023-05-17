@@ -4,10 +4,10 @@ from typing import Optional
 from httpx import AsyncHTTPTransport, HTTPTransport
 from httpx import Request, Response
 
-from wanmeibbs.basics import Sha1Utils
-from wanmeibbs.basics.device_generator import get_rand_device
-from wanmeibbs.consts import TigerAPPConsts
-from wanmeibbs.utils import timestamp, Params
+from wanmeibbskit.basics import Sha1Utils
+from wanmeibbskit.basics.device_generator import get_rand_device
+from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.utils import timestamp, Params
 
 __all__ = [
     'TigerTransport',
@@ -18,18 +18,26 @@ __all__ = [
 class AsyncTigerTransport(AsyncHTTPTransport):
     def __init__(
             self,
-            app_id: Optional[int] = 10021,
-            channel_id: Optional[int] = 1991,
-            sub_app_id: Optional[str] = TigerAPPConsts.PACKAGE_NAME,
-            user_agent: Optional[str] = 'okhttp/4.9.0',
+            app_id: Optional[int] = None,
+            channel_id: Optional[int] = None,
+            sub_app_id: Optional[str] = None,
+            user_agent: Optional[str] = None,
             **kwargs
     ):
+        if not app_id:
+            app_id = TigerAPPConsts.COMMON_APP_ID
+        if not channel_id:
+            channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+        if not sub_app_id:
+            sub_app_id = TigerAPPConsts.PACKAGE_NAME
+
         self.device_info = get_rand_device(
             app_id=app_id,
             channel_id=channel_id,
             sub_app_id=sub_app_id
         )
-        self.user_agent = user_agent
+
+        self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
         super().__init__(**kwargs)
 
     async def handle_async_request(self, request: Request) -> Response:
@@ -57,18 +65,26 @@ class AsyncTigerTransport(AsyncHTTPTransport):
 class TigerTransport(HTTPTransport):
     def __init__(
             self,
-            app_id: Optional[int] = 10021,
-            channel_id: Optional[int] = 1991,
-            sub_app_id: Optional[str] = TigerAPPConsts.PACKAGE_NAME,
-            user_agent: Optional[str] = 'okhttp/4.9.0',
+            app_id: Optional[int] = None,
+            channel_id: Optional[int] = None,
+            sub_app_id: Optional[str] = None,
+            user_agent: Optional[str] = None,
             **kwargs
     ):
+        if not app_id:
+            app_id = TigerAPPConsts.COMMON_APP_ID
+        if not channel_id:
+            channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+        if not sub_app_id:
+            sub_app_id = TigerAPPConsts.PACKAGE_NAME
+
         self.device_info = get_rand_device(
             app_id=app_id,
             channel_id=channel_id,
             sub_app_id=sub_app_id
         )
-        self.user_agent = user_agent
+
+        self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
         super().__init__(**kwargs)
 
     def handle_async_request(self, request: Request) -> Response:

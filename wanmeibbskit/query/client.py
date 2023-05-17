@@ -3,9 +3,9 @@ from typing import Any, Mapping, Optional, Union
 from httpx import AsyncClient
 from httpx import Response
 
-from wanmeibbs.basics import HYBRID_URL
-from wanmeibbs.utils import AsyncTigerTransport, URL
-from wanmeibbs.utils.decorators import enforce_implementation
+from wanmeibbskit.basics import HYBRID_URL
+from wanmeibbskit.utils import AsyncTigerTransport, URL
+from wanmeibbskit.utils.decorators import enforce_implementation
 
 
 class WanmeiBBSClient:
@@ -29,8 +29,8 @@ class WanmeiBBSClient:
 
     async def request(
             self,
-            url: Optional[Union[str, URL]],
-            method: Optional[str] = 'GET',
+            url: Union[str, URL],
+            method: str = 'GET',
             data: Optional[Mapping[str, Any]] = None,
             params: Optional[Mapping[str, Any]] = None
     ) -> Response:
