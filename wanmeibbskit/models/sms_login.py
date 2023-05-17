@@ -3,7 +3,6 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
-from wanmeibbskit.utils.url_utils import URL
 
 __all__ = [
     'SexEnum',
@@ -16,6 +15,7 @@ __all__ = [
 class SexEnum(int, Enum):
     FEMALE = 0
     MALE = 1
+
 
 class UserIdentify(BaseModel):
     contactInfo: str = Field(..., description="联系方式")
@@ -45,7 +45,7 @@ class SmsLoginResult(BaseModel):
     showEmail: str = Field(..., description="展示邮箱")
     showContactInfo: str = Field(..., description="展示联系方式")
     idCardType: int = Field(..., description="身份证类型")
-    isTempUser: bool = Field(..., description="是否为临时用户") 
+    isTempUser: bool = Field(..., description="是否为临时用户")
     expireTips: str = Field(..., description="过期提示")
     token: str = Field(..., description="登录Token")
     havePwd: bool = Field(..., description="密码设置状态")
@@ -61,10 +61,10 @@ class SmsLoginResult(BaseModel):
     tradeTime: int = Field(..., description="交易时间")
     sex: Optional[SexEnum] = Field(..., description="性别")
     isHeadImgDefault: bool = Field(..., description="是否为默认头像")
-    headImg: URL = Field(..., description="头像Url")
+    headImg: str = Field(..., description="头像Url")
     bindRelation: Dict[str, Any] = Field(..., description="绑定关系")
     userGames: List = Field(..., description="玩家游戏列表")
-    iosReviewUrl: URL = Field(..., description="iOS Url")
+    iosReviewUrl: str = Field('', description="iOS Url")
 
 
 class SmsLoginResponse(BaseModel):
