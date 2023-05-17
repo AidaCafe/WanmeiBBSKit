@@ -50,7 +50,7 @@ class Params(httpx.QueryParams):
     def __and__(self, other):
         if not (isinstance(other, httpx.QueryParams) or isinstance(other, Params)):
             other = Params(other)
-        params_ = Params()
+        params_ = Params(self)
         for param_k, param_v in other.multi_items():
             params_ = params_.add(param_k, param_v)
         return params_
@@ -58,8 +58,3 @@ class Params(httpx.QueryParams):
     @property
     def raw(self) -> str:
         return '&'.join([f'{k}={v}' for k, v in self.multi_items()])
-
-
-if __name__ == '__main__':
-    p = Params('foo={"foo": "bar"}')
-    print(p.raw)
