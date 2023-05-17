@@ -1,10 +1,12 @@
 from json import JSONDecodeError
-from typing import Optional
+from typing import Optional, Union
 
 from httpx import AsyncClient
 
 from wanmeibbskit.basics import HYBRID_URL
 from wanmeibbskit.utils import AsyncUserMgrTransport
+from wanmeibbskit.utils import safety_response_json
+from wanmeibbskit.models.sms_login import SmsLoginResponse
 
 __all__ = ['SmsLoginSession']
 
@@ -29,10 +31,20 @@ class SmsLoginSession:
         self.phone_number = phone_number
         self.login_type = login_type
         self.area_code_id = area_code_id
-        self.client = AsyncClient(**client_kwargs)
+        self._client = AsyncClient(**client_kwargs)
+
+        self._sent_count = 0
+
+    @property
+    def sent_count(self):
+        return self._sent_count
+
+    @property
+    def has_sent(self) -> bool:
+        return self._sent_count != 0
 
     async def send_sms(self) -> bool:
-        resp_ = await self.client.post(
+        resp_ = await self._client.post(
             '/m/newApi/sendPhoneCaptchaWithOutLogin',
             params={
                 "type": self.login_type,
@@ -40,30 +52,36 @@ class SmsLoginSession:
                 "cellphone": self.phone_number
             }
         )
-        if not resp_.status_code == 200:
+        if not (data := safety_response_json(resp_, restrict_status_code=True)):
             return False
-        try:
-            return_data = resp_.json()
-        except JSONDecodeError:
-            return False
-        if return_data.get("code", -1) != 0:
+        if data.get("code", -1) != 0:
             return False
         return True
 
     async def verify_code(self, captcha_code: int):
-        resp_ = await self.client.post(
-            'm/newApi/checkPhoneCaptchaWithOutLogin',
+        resp_ = await self._client.post(
+            '/m/newApi/checkPhoneCaptchaWithOutLogin',
             params={
                 "cellphone": self.phone_number,
                 "captcha": captcha_code
             }
         )
-        if not resp_.status_code == 200:
+        if not (data := safety_response_json(resp_, restrict_status_code=True)):
             return False
-        try:
-            return_data = resp_.json()
-        except JSONDecodeError:
-            return False
-        if return_data.get("code", -1) != 0:
+        if data.get("code", -1) != 0:
             return False
         return True
+
+    async def login(self) -> Union[SmsLoginResponse, None]:
+        resp_ = await self._client.post(
+            '/m/newApi/sms/login',
+            params={
+                "areaCodeId": self.area_code_id,
+                "cellphone": self.phone_number,
+            }
+        )
+        if not (data := safety_response_json(resp_, restrict_status_code=True)):
+            return None
+        if data.get("code", -1) != 0:
+            return None
+        return SmsLoginResponse(**data)
