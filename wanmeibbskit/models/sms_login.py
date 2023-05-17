@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
+from wanmeibbskit.utils.url_utils import URL
 
 __all__ = [
     'SexEnum',
@@ -60,10 +61,10 @@ class SmsLoginResult(BaseModel):
     tradeTime: int = Field(..., description="交易时间")
     sex: Optional[SexEnum] = Field(..., description="性别")
     isHeadImgDefault: bool = Field(..., description="是否为默认头像")
-    headImg: str = Field(..., description="头像Url")
+    headImg: URL = Field(..., description="头像Url")
     bindRelation: Dict[str, Any] = Field(..., description="绑定关系")
     userGames: List = Field(..., description="玩家游戏列表")
-    iosReviewUrl: str = Field(..., description="iOS Url")
+    iosReviewUrl: URL = Field(..., description="iOS Url")
 
 
 class SmsLoginResponse(BaseModel):

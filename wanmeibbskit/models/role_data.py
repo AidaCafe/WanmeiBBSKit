@@ -5,6 +5,17 @@ from pydantic import BaseModel, Field
 from wanmeibbskit.utils import URL
 
 
+__all__ = [
+    'Arena',
+    'CommonItem',
+    'ExplorationInfo',
+    'RoleData',
+    'RoleDataResponse',
+    'SubExplorationInfo',
+    'WeaponCate',
+    'WeaponInfo',
+]
+
 class CommonItem(BaseModel):
     key: str = Field(..., description='类型Key')
     name: str = Field(..., description='名称')
@@ -12,7 +23,7 @@ class CommonItem(BaseModel):
     img: Optional[URL] = Field(..., description='图标Url')
 
 
-class ArenaItem(BaseModel):
+class Arena(BaseModel):
     key: str = Field(..., description='爬塔类型Key')
     name: str = Field(..., description='爬塔名称')
     value: str = Field(..., description='爬塔层数')
@@ -20,7 +31,7 @@ class ArenaItem(BaseModel):
     brief: str = Field(..., description='展示短语')
 
 
-class WeaponInfoItem(BaseModel):
+class WeaponInfo(BaseModel):
     id: int = Field(..., description='武器Id')
     level: int = Field(..., alias='lev', description='武器等级')
     star: int = Field(..., description='武器星级')
@@ -30,7 +41,7 @@ class WeaponInfoItem(BaseModel):
     cate_id: int = Field(..., alias='cateId')
 
 
-class WeaponCateItem(BaseModel):
+class WeaponCate(BaseModel):
     id: int = Field(..., description='武器属性Id')
     title: str = Field(..., description='属性名称')
 
@@ -55,7 +66,7 @@ class ExplorationInfo(BaseModel):
     children: List[SubExplorationInfo] = Field(..., description='子地区探索度')
 
 
-class Result(BaseModel):
+class RoleData(BaseModel):
     uid: int = Field(..., description='用户Id')
     game_uid: str = Field(..., alias='gameUid', description='游戏Id')
     name: str = Field(..., description='游戏内角色名称')
@@ -67,15 +78,15 @@ class Result(BaseModel):
     fight_info: List[CommonItem] = Field(..., alias='fightInfo', description='面板信息')
     achievements: List[CommonItem] = Field(..., alias='achInfo', description='成就信息')
     currency: List[CommonItem] = Field(..., description='货币信息')
-    arena: List[ArenaItem] = Field(..., description='爬塔信息')
-    weapon_info: List[WeaponInfoItem] = Field(..., alias='weaponInfo', description='武器信息') 
-    weapon_cate: List[WeaponCateItem] = Field(..., alias='weaponCate', description='武器属性')
+    arena: List[Arena] = Field(..., description='爬塔信息')
+    weapon_info: List[WeaponInfo] = Field(..., alias='weaponInfo', description='武器信息') 
+    weapon_cate: List[WeaponCate] = Field(..., alias='weaponCate', description='武器属性')
     explorations: List[ExplorationInfo] = Field(..., alias='towerInfo', description='探索度信息')
 
 
-class Model(BaseModel):
-    traceid: str
-    code: int
-    message: str
-    result: Result
-    env: str
+class RoleDataResponse(BaseModel):
+    traceid: Optional[str] = Field(..., description='追踪Id')
+    code: int = Field(..., description='请求状态Id')
+    message: str = Field(..., description='请求状态信息')
+    result: RoleData = Field(..., description='请求结果')
+    env: Optional[str] = Field(..., description='运行环境')
