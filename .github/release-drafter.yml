@@ -1,0 +1,52 @@
+# a copy from https://github.com/nonebot/nonebot2
+template: $CHANGES
+category-template: "### $TITLE"
+name-template: "Release v$RESOLVED_VERSION 🌈"
+tag-template: "v$RESOLVED_VERSION"
+change-template: "- $TITLE [@$AUTHOR](https://github.com/$AUTHOR) ([#$NUMBER]($URL))"
+change-title-escapes: '\<&'
+categories:
+  - title: "💥 破坏性变更"
+    labels:
+      - "破坏性"
+      - "Breaking"
+  - title: "🦄 新功能实现"
+    labels:
+      - "功能"
+      - "实现"
+      - "feature"
+  - title: "🦄 新功能实现"
+    labels:
+      - "增强"
+      - "优化"
+      - "改进"
+      - "optimize"
+      - "improve"
+      - "enhancement"
+  - title: "🐛 Bug 修复"
+    labels:
+      - "修复"
+      - "解决"
+      - "fix"
+      - "bugfix"
+      - "bug"
+  - title: "📝 文档"
+    labels:
+      - "README.md"
+      - "文档"
+      - "documentation"
+  - title: "🔀 依赖改动"
+    labels:
+      - "依赖"
+  - title: "💫 杂项"
+version-resolver:
+  major:
+    labels:
+      - "major"
+  minor:
+    labels:
+      - "minor"
+  patch:
+    labels:
+      - "patch"
+  default: patch
