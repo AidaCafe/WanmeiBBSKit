@@ -62,7 +62,7 @@ class Sha1Utils:
         )
 
     @staticmethod
-    def loadPrivateKey(b64_private_key: str, password: Optional[str] = None) -> RSAPrivateKey:  # com.wanmei.basic.e.s.d
+    def loadPrivateKey(b64_private_key: str, password: Optional[bytes] = None) -> RSAPrivateKey:  # com.wanmei.basic.e.s.d
         """
         将base64编码的PKCS8格式的字符串转换为PrivateKey对象
         :param b64_private_key: base64编码的PKCS8格式的私钥字符串

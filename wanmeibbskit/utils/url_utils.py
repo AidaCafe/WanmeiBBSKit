@@ -37,7 +37,7 @@ class Params(httpx.QueryParams):
     def add(self, key: str, value: Optional[Any] = None):
         if str(value).startswith('{') and str(value).endswith('}'):
             try:
-                value = orjson.dumps(orjson.loads(value)).decode()
+                value = orjson.dumps(orjson.loads(str(value))).decode()
             except orjson.JSONDecodeError:
                 pass
         return Params(super().add(key=key, value=value))
