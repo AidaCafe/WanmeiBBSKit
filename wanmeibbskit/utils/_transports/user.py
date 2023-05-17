@@ -7,6 +7,7 @@ from wanmeibbskit.basics import MD5Utils
 from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.utils import Params, timestamp
+from wanmeibbskit.models.device_info import DeviceInfo
 
 __all__ = [
     'UserMgrTransport',
@@ -17,15 +18,24 @@ __all__ = [
 class AsyncUserMgrTransport(AsyncHTTPTransport):
     def __init__(
             self,
-            app_id: Optional[int] = 10021,
-            channel_id: Optional[int] = 1991,
+            device_info: Optional[DeviceInfo] = None,
+            app_id: Optional[int] = None,
+            channel_id: Optional[int] = None,
             user_agent: Optional[str] = None,
             **kwargs
     ):
-        self.device_info = get_rand_device(
-            app_id=app_id,
-            channel_id=channel_id
-        )
+        if not device_info:
+            if not app_id:
+                app_id = TigerAPPConsts.COMMON_APP_ID
+            if not channel_id:
+                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+
+            device_info = get_rand_device(
+                app_id=app_id,
+                channel_id=channel_id
+            )
+        self.device_info = device_info
+
         if not user_agent:
             user_agent = f'LaohuSDK/{TigerAPPConsts.SDK_VERSION} ' \
                          f'({self.device_info.os.name.lower()} os {self.device_info.system_version};' \
@@ -68,15 +78,24 @@ class AsyncUserMgrTransport(AsyncHTTPTransport):
 class UserMgrTransport(HTTPTransport):
     def __init__(
             self,
-            app_id: Optional[int] = 10021,
-            channel_id: Optional[int] = 1991,
+            device_info: Optional[DeviceInfo] = None,
+            app_id: Optional[int] = None,
+            channel_id: Optional[int] = None,
             user_agent: Optional[str] = None,
             **kwargs
     ):
-        self.device_info = get_rand_device(
-            app_id=app_id,
-            channel_id=channel_id,
-        )
+        if not device_info:
+            if not app_id:
+                app_id = TigerAPPConsts.COMMON_APP_ID
+            if not channel_id:
+                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+
+            device_info = get_rand_device(
+                app_id=app_id,
+                channel_id=channel_id
+            )
+        self.device_info = device_info
+
         if not user_agent:
             user_agent = f'LaohuSDK/{TigerAPPConsts.SDK_VERSION} ' \
                          f'({self.device_info.os.name.lower()} os {self.device_info.system_version};' \

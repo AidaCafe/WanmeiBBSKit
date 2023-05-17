@@ -23,8 +23,9 @@ class WanmeiBBSClient:
 
     @classmethod
     @enforce_implementation
-    def from_token(cls, user_id: int, token: str) -> "WanmeiBBSClient":
+    def from_token(cls, token: str) -> "WanmeiBBSClient":
         instance_ = cls()
+        instance_.login_data = ...
         return instance_
 
     async def request(

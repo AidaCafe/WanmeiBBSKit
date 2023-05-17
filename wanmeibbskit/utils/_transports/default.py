@@ -7,6 +7,7 @@ from httpx import Request, Response
 from wanmeibbskit.basics import Sha1Utils
 from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.models.device_info import DeviceInfo
 from wanmeibbskit.utils import timestamp, Params
 
 __all__ = [
@@ -18,24 +19,27 @@ __all__ = [
 class AsyncTigerTransport(AsyncHTTPTransport):
     def __init__(
             self,
+            device_info: Optional[DeviceInfo] = None,
             app_id: Optional[int] = None,
             channel_id: Optional[int] = None,
             sub_app_id: Optional[str] = None,
             user_agent: Optional[str] = None,
             **kwargs
     ):
-        if not app_id:
-            app_id = TigerAPPConsts.COMMON_APP_ID
-        if not channel_id:
-            channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
-        if not sub_app_id:
-            sub_app_id = TigerAPPConsts.PACKAGE_NAME
+        if not device_info:
+            if not app_id:
+                app_id = TigerAPPConsts.COMMON_APP_ID
+            if not channel_id:
+                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+            if not sub_app_id:
+                sub_app_id = TigerAPPConsts.PACKAGE_NAME
 
-        self.device_info = get_rand_device(
-            app_id=app_id,
-            channel_id=channel_id,
-            sub_app_id=sub_app_id
-        )
+            device_info = get_rand_device(
+                app_id=app_id,
+                channel_id=channel_id,
+                sub_app_id=sub_app_id
+            )
+        self.device_info = device_info
 
         self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
         super().__init__(**kwargs)
@@ -65,24 +69,27 @@ class AsyncTigerTransport(AsyncHTTPTransport):
 class TigerTransport(HTTPTransport):
     def __init__(
             self,
+            device_info: Optional[DeviceInfo] = None,
             app_id: Optional[int] = None,
             channel_id: Optional[int] = None,
             sub_app_id: Optional[str] = None,
             user_agent: Optional[str] = None,
             **kwargs
     ):
-        if not app_id:
-            app_id = TigerAPPConsts.COMMON_APP_ID
-        if not channel_id:
-            channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
-        if not sub_app_id:
-            sub_app_id = TigerAPPConsts.PACKAGE_NAME
+        if not device_info:
+            if not app_id:
+                app_id = TigerAPPConsts.COMMON_APP_ID
+            if not channel_id:
+                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
+            if not sub_app_id:
+                sub_app_id = TigerAPPConsts.PACKAGE_NAME
 
-        self.device_info = get_rand_device(
-            app_id=app_id,
-            channel_id=channel_id,
-            sub_app_id=sub_app_id
-        )
+            device_info = get_rand_device(
+                app_id=app_id,
+                channel_id=channel_id,
+                sub_app_id=sub_app_id
+            )
+        self.device_info = device_info
 
         self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
         super().__init__(**kwargs)
