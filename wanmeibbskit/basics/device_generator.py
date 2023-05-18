@@ -45,7 +45,6 @@ class DeviceInfoGenerator:
         }
 
 
-@cache
 def get_rand_device(
         app_id: int,
         channel_id: int,
