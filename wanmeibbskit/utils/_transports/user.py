@@ -103,7 +103,7 @@ class UserMgrTransport(HTTPTransport):
         self.user_agent = user_agent
         super().__init__(**kwargs)
 
-    def handle_async_request(self, request: Request) -> Response:
+    def handle_request(self, request: Request) -> Response:
         params_ = Params(request.url.params)
         current_time = timestamp()
         params_ = params_.merge({
