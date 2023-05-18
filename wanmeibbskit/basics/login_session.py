@@ -1,11 +1,10 @@
-from json import JSONDecodeError
 from typing import Optional, Union
 
 from httpx import AsyncClient
 
 from wanmeibbskit.basics import HYBRID_URL
 from wanmeibbskit.utils import AsyncUserMgrTransport
-from wanmeibbskit.utils import safety_response_json
+from wanmeibbskit.utils import secure_json_retrieve
 from wanmeibbskit.models.sms_login import SmsLoginResponse
 
 __all__ = ['SmsLoginSession']
@@ -52,7 +51,7 @@ class SmsLoginSession:
                 "cellphone": self.phone_number
             }
         )
-        if not (data := safety_response_json(resp_, restrict_status_code=True)):
+        if not (data := secure_json_retrieve(resp_, restrict_status_code=True)):
             return False
         if data.get("code", -1) != 0:
             return False
@@ -66,7 +65,7 @@ class SmsLoginSession:
                 "captcha": captcha_code
             }
         )
-        if not (data := safety_response_json(resp_, restrict_status_code=True)):
+        if not (data := secure_json_retrieve(resp_, restrict_status_code=True)):
             return False
         if data.get("code", -1) != 0:
             return False
@@ -80,7 +79,7 @@ class SmsLoginSession:
                 "cellphone": self.phone_number,
             }
         )
-        if not (data := safety_response_json(resp_, restrict_status_code=True)):
+        if not (data := secure_json_retrieve(resp_, restrict_status_code=True)):
             return None
         if data.get("code", -1) != 0:
             return None

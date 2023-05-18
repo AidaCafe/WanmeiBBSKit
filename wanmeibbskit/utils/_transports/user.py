@@ -3,7 +3,7 @@ from typing import Optional
 from httpx import AsyncHTTPTransport, HTTPTransport
 from httpx import Request, Response
 
-from wanmeibbskit.basics import MD5Utils
+from wanmeibbskit.basics.md5utils import MD5Utils
 from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.utils import Params, timestamp

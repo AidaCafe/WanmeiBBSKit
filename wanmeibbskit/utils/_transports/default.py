@@ -1,10 +1,9 @@
-import time
 from typing import Optional
 
 from httpx import AsyncHTTPTransport, HTTPTransport
 from httpx import Request, Response
 
-from wanmeibbskit.basics import Sha1Utils
+from wanmeibbskit.basics.sha1utils import Sha1Utils
 from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.models.device_info import DeviceInfo
