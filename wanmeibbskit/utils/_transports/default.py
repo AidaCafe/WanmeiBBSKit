@@ -48,7 +48,7 @@ class AsyncTigerTransport(AsyncHTTPTransport):
         current_time = timestamp()
         params_ = params_.merge({
             "timestamp": current_time,
-            "deviceInfo": self.device_info,
+            "deviceInfo": self.device_info.json(by_alias=True),
         })
 
         request.url = request.url.copy_merge_params(
@@ -93,12 +93,12 @@ class TigerTransport(HTTPTransport):
         self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
         super().__init__(**kwargs)
 
-    def handle_async_request(self, request: Request) -> Response:
+    def handle_request(self, request: Request) -> Response:
         params_ = Params(request.url.params)
         current_time = timestamp()
         params_ = params_.merge({
             "timestamp": current_time,
-            "deviceInfo": self.device_info,
+            "deviceInfo": self.device_info.json(by_alias=True),
         })
 
         request.url = request.url.copy_merge_params(
