@@ -1,4 +1,3 @@
-import json
 from enum import Enum
 from typing import cast
 from typing import (
@@ -9,6 +8,7 @@ from typing import (
     Optional
 )
 
+import orjson
 from pydantic import BaseModel
 
 
@@ -18,12 +18,8 @@ __all__ = [
 ]
 
 
-def compact_dumps(__obj: dict, default, **kwargs) -> str:
-    # orjson不支持default，手动实现须两层嵌套循环，加之少量数据时速度对比不明显，故使用json
-    kwargs.update({
-        "separators": (',', ':')
-    })
-    return json.dumps(__obj, default=default, **kwargs)
+def compact_dumps(__obj: dict, default, **orjson_kwargs) -> str:
+    return orjson.dumps(__obj, default=default, **orjson_kwargs).decode()
 
 
 class CompactJsonModel(BaseModel):
