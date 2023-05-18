@@ -1,5 +1,12 @@
-__all__ = ['TigerAPPConsts', 'Salts']
+__all__ = [
+    'DEFAULT_LOGIN_AREA',
+    'DEFAULT_LOGIN_TYPE',
+    'TigerAPPConsts',
+    'Salts'
+]
 
+DEFAULT_LOGIN_TYPE = 16
+DEFAULT_LOGIN_AREA = 1
 
 class TigerAPPConsts:
     BUILD_VERSION = 105
