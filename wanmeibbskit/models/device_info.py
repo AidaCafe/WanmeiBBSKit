@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import IntEnum
 from typing import Optional
 
 from pydantic import Field
@@ -14,7 +14,7 @@ __all__ = [
 ]
 
 
-class OSType(int, Enum):
+class OSType(IntEnum):
     UNKNOWN = 0
     IOS = 1  # guess
     ANDROID = 2
@@ -45,12 +45,12 @@ class OSVersionRange:
 
 
 class DeviceInfo(AllStringCompactJsonModel):
-    build_version: Optional[str] = Field(TigerAPPConsts.BUILD_VERSION, alias="buildVersion", const=True,
+    build_version: Optional[int] = Field(TigerAPPConsts.BUILD_VERSION, alias="buildVersion", const=True,
                                          description="构建版本号")
     system_version: int = Field(..., alias="phoneSystemVersion", description="系统版本")
     model: str = Field(..., alias="device_model", description="设备型号")
     device_type: str = Field(..., description="设备生产厂商")
-    version: Optional[int] = Field(TigerAPPConsts.VERSION, const=True, description="社区版本号")
+    app_version: Optional[str] = Field(TigerAPPConsts.VERSION, const=True, description="社区版本号")
     device_id: str = Field(..., alias="deviceId", description="设备Id")
     app_id: int = Field(..., alias="appId", description="应用Id")
     os: OSType = Field(..., alias="osType", description="系统类型")
