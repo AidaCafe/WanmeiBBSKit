@@ -1,7 +1,11 @@
-from typing import Union, Protocol
+from typing import Any, Optional, Union, Protocol
 from json import JSONDecodeError
 
-__all__ = ['safety_response_json']
+
+__all__ = [
+    'secure_json_retrieve',
+    'secure_int_retrieve'
+]
 
 
 class Response(Protocol):
@@ -11,7 +15,7 @@ class Response(Protocol):
         ...
 
 
-def safety_response_json(
+def secure_json_retrieve(
         __resp: Response,
         restrict_status_code: bool = False
 ) -> Union[dict, None]:
@@ -28,3 +32,20 @@ def safety_response_json(
     except JSONDecodeError:
         return None
     return response_data
+
+
+def secure_int_retrieve(value: Any, __default: Optional[int] = None) -> Union[int, None]:
+    """
+    安全获得int值
+    :param value: 任何类型
+    :param __default: 获取失败时的默认返回值
+    :return: value的值或者None
+    """
+    if hasattr(value, 'value'):
+        value = value.value
+    if isinstance(value, int):
+        return value
+    try:
+        return int(value)
+    except TypeError:
+        return __default
