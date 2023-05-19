@@ -14,10 +14,10 @@ from wanmeibbskit.models.pwcgapi.other_detail import OtherDetailData
 
 class BBSApp(PerfectWorldAPI):
     @method_need_login
-    async def getRoleList(self) -> Union[CommonResponse[RoleList], None]:
+    async def getRoleList(self) -> CommonResponse[RoleList]:
         """
         获取当前登录账号名下的所有游戏信息
-        :return: 已序列化的、完整的返回值
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.RoleList对象
         """
         resp_ = await self.client.post(
             '/game/roleList',
@@ -32,10 +32,10 @@ class BBSApp(PerfectWorldAPI):
         return CommonResponse[RoleList].parse_obj(secure_json_retrieve(resp_, restrict_status_code=True))
 
     @method_need_login
-    async def getUserDetail(self) -> Union[CommonResponse[UserDetailData], None]:
+    async def getUserDetail(self) -> CommonResponse[UserDetailData]:
         """
         获取自己的论坛用户信息
-        :return: 已序列化的、完整的返回值
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.UserDetailData对象
         """
         resp_ = await self.client.post(
             '/user/getDetail/v2',
@@ -50,11 +50,11 @@ class BBSApp(PerfectWorldAPI):
         return CommonResponse[UserDetailData].parse_obj(secure_json_retrieve(resp_))
 
     @method_need_login
-    async def getOtherDetail(self, other_uid: int) -> Union[CommonResponse[OtherDetailData], None]:
+    async def getOtherDetail(self, other_uid: int) -> CommonResponse[OtherDetailData]:
         """
         获取他人的论坛用户信息
-        :param other_uid: 他人的论坛uid
-        :return: 已序列化的、完整的返回值
+        :param other_uid: 论坛用户id
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.OtherDetailData对象
         """
         resp_ = await self.client.post(
             '/user/getOtherDetail/v2',
@@ -70,7 +70,11 @@ class BBSApp(PerfectWorldAPI):
         return CommonResponse[OtherDetailData].parse_obj(secure_json_retrieve(resp_))
 
     @method_need_login
-    async def getUnreadMessage(self) -> Union[CommonResponse[UnreadMessageData], None]:
+    async def getUnreadMessage(self) -> CommonResponse[UnreadMessageData]:
+        """
+        获取论坛未读消息
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.UnreadMessageData对象
+        """
         resp_ = await self.client.post(
             '/user/getUnreadMessage',
             params={
@@ -85,6 +89,11 @@ class BBSApp(PerfectWorldAPI):
 
     @method_need_login
     async def getArticleDetail(self, article_id: int) -> CommonResponse[ArticleDetailData]:
+        """
+        获取文章详情
+        :param article_id: 社区文章id
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.ArticleDetailData对象
+        """
         resp_ = await self.client.post(
             '/article/viewDetail',
             params={
@@ -105,6 +114,13 @@ class BBSApp(PerfectWorldAPI):
             page_size: Optional[int] = 10,
             page_num: Optional[int] = 1
     ) -> CommonResponse[OtherArticles]:
+        """
+        获取论坛用户的所有文章列表
+        :param other_uid: 论坛用户id
+        :param page_size: 每页的文章数量
+        :param page_num: 页数
+        :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.OtherArticles对象
+        """
         resp_ = await self.client.post(
             'article/pageOther',
             params={
