@@ -5,11 +5,17 @@ from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
 from wanmeibbskit.models import CommonResponse
 from wanmeibbskit.models.pwcgapi.role_list import RoleList
+from wanmeibbskit.models.pwcgapi.user_detail import UserDetailData
+from wanmeibbskit.models.pwcgapi.other_detail import OtherDetailData
 
 
 class BBSApp(PerfectWorldAPI):
     @method_need_login
     async def roleList(self) -> Union[CommonResponse[RoleList], None]:
+        """
+        获取当前登录账号名下的所有游戏信息
+        :return: 已序列化的、完整的返回值
+        """
         resp_ = await self.client.post(
             '/game/roleList',
             params={
@@ -21,3 +27,41 @@ class BBSApp(PerfectWorldAPI):
             }
         )
         return CommonResponse[RoleList].parse_obj(secure_json_retrieve(resp_, restrict_status_code=True))
+
+    @method_need_login
+    async def userDetail(self):
+        """
+        获取自己的论坛用户信息
+        :return: 已序列化的、完整的返回值
+        """
+        resp_ = await self.client.post(
+            '/user/getDetail/v2',
+            params={
+                "uid": self.uid
+            },
+            headers={
+                "token": self.token
+            }
+        )
+
+        return CommonResponse[UserDetailData].parse_obj(secure_json_retrieve(resp_))
+
+    @method_need_login
+    async def userDetail(self, other_uid: int) -> Union[CommonResponse[OtherDetailData], None]:
+        """
+        获取他人的论坛用户信息
+        :param other_uid: 他人的论坛uid
+        :return: 已序列化的、完整的返回值
+        """
+        resp_ = await self.client.post(
+            '/user/getOtherDetail/v2',
+            params={
+                "uid": self.uid,
+                "otherUid": other_uid
+            },
+            headers={
+                "token": self.token
+            }
+        )
+
+        return CommonResponse[OtherDetailData].parse_obj(secure_json_retrieve(resp_))
