@@ -1,6 +1,7 @@
-from typing import Union
+from typing import Union, Optional
 
 from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
+from wanmeibbskit.models.pwcgapi.article_detail import ArticleDetailData
 from wanmeibbskit.models.pwcgapi.user_unread_message import UnreadMessageData
 from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
@@ -80,3 +81,18 @@ class BBSApp(PerfectWorldAPI):
         )
 
         return CommonResponse[UnreadMessageData].parse_obj(secure_json_retrieve(resp_))
+
+    @method_need_login
+    async def getArticleDetail(self, article_id: int):
+        resp_ = await self.client.post(
+            '/article/viewDetail',
+            params={
+                "uid": self.uid,
+                "articleId": article_id
+            },
+            headers={
+                "token": self.token,
+            }
+        )
+
+        return CommonResponse[ArticleDetailData].parse_obj(secure_json_retrieve(resp_))
