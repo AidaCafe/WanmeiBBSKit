@@ -18,7 +18,6 @@ class HottaClient(BBSApp):
         if not uid:
             uid = self.uid
         if not role_id:
-            print('role id not fnd')
             if uid == self.uid:
                 role_data = (await self.getUserDetail()).result
             else:
