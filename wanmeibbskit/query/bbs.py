@@ -1,15 +1,17 @@
-from typing import Union, Optional
+from typing import Optional
 
 from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
-from wanmeibbskit.models.pwcgapi.article_detail import ArticleDetailData
-from wanmeibbskit.models.pwcgapi.other_articles import OtherArticles
-from wanmeibbskit.models.pwcgapi.user_unread_message import UnreadMessageData
 from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
 from wanmeibbskit.models import CommonResponse
-from wanmeibbskit.models.pwcgapi.role_list import RoleList
-from wanmeibbskit.models.pwcgapi.user_detail import UserDetailData
-from wanmeibbskit.models.pwcgapi.other_detail import OtherDetailData
+from wanmeibbskit.models.pwgcapi import (
+    RoleList,
+    UserDetailData,
+    OtherDetailData,
+    UnreadMessageData,
+    OtherArticles,
+    ArticleDetailData
+)
 
 
 class BBSApp(PerfectWorldAPI):

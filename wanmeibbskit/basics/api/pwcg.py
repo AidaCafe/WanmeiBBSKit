@@ -11,7 +11,7 @@ from wanmeibbskit.models import CommonResponse
 from wanmeibbskit.utils import AsyncTigerTransport, URL
 from wanmeibbskit.utils import secure_json_retrieve
 from wanmeibbskit.models.device_info import DeviceInfo
-from wanmeibbskit.models.pwcgapi.login_response import LoginData
+from wanmeibbskit.models.pwgcapi import LoginData
 
 
 class PerfectWorldAPI:
