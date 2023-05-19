@@ -1,4 +1,3 @@
-import asyncio
 from typing import Any, Mapping, Optional, Union
 
 from httpx import AsyncClient
@@ -7,18 +6,21 @@ from httpx import Response
 from wanmeibbskit.basics import HYBRID_URL
 from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.exceptions import InvalidToken
+from wanmeibbskit.models import CommonResponse
 from wanmeibbskit.utils import AsyncTigerTransport, URL
 from wanmeibbskit.utils import secure_json_retrieve
 from wanmeibbskit.models.device_info import DeviceInfo
+from wanmeibbskit.models.pwcgapi.login_response import LoginData
 
 
 class PerfectWorldAPI:
-    _uid: Union[None, int] = None
-    _token: Union[None, str] = None
+    _token: Union[str, None] = None
+    _login_data: Union[LoginData, None] = None
 
     @property
     def isLogin(self) -> bool:
-        return self._isLogin
+        return self._login_data is not None
 
     @property
     def device_info(self) -> Union[DeviceInfo, None]:
@@ -30,9 +32,10 @@ class PerfectWorldAPI:
 
     @property
     def uid(self) -> Union[int, None]:
-        return self._uid
+        return self._login_data.uid
 
     def __init__(self, device: Optional[DeviceInfo] = None):
+        self._token = None
         if not device:
             device = get_rand_device(
                 app_id=TigerAPPConsts.COMMON_APP_ID,
@@ -48,9 +51,9 @@ class PerfectWorldAPI:
         self._isLogin = False
 
     @classmethod
-    def from_token(cls, uid: int, token: str, device: DeviceInfo) -> "PerfectWorldAPI":
+    async def from_token(cls, uid: int, token: str, device: DeviceInfo) -> "PerfectWorldAPI":
         instance_ = cls(device=device)
-        asyncio.run(instance_.login(uid=uid, token=token))
+        await instance_.login(uid=uid, token=token)
         return instance_
 
     async def request(
@@ -67,7 +70,7 @@ class PerfectWorldAPI:
             params=params
         )
 
-    async def login(self, uid: int, token: str):
+    async def login(self, uid: int, token: str) -> CommonResponse[LoginData]:
         resp_ = await self.client.post(
             '/login/v2',
             params={
@@ -79,10 +82,9 @@ class PerfectWorldAPI:
                 "token": token
             }
         )
-        data_ = secure_json_retrieve(resp_)
-        if data_ and data_.get('code', -1) == 0:
-            self._isLogin = True
-            self._uid = data_['result'].get('uid')
+        data_ = CommonResponse[LoginData].parse_obj(secure_json_retrieve(resp_))
+        if data_.result:
+            self._login_data = data_.result
             self._token = token
             return data_
-        raise ValueError('Not a valid login token!')
+        raise InvalidToken('Not a valid login token!')

@@ -8,7 +8,7 @@ from wanmeibbskit.consts import DEFAULT_LOGIN_AREA
 from wanmeibbskit.consts import DEFAULT_LOGIN_TYPE
 from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.models.device_info import DeviceInfo
-from wanmeibbskit.models.sms_login import SmsLoginResponse
+from wanmeibbskit.models.userapi.sms_login import SmsLoginResponse
 from wanmeibbskit.utils import AsyncUserMgrTransport
 from wanmeibbskit.utils import secure_json_retrieve
 

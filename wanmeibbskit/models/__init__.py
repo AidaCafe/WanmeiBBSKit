@@ -4,18 +4,23 @@ from typing import (
     AbstractSet,
     Any,
     Callable,
+    Generic,
     Mapping,
-    Optional
+    Optional,
+    TypeVar
 )
 
 import orjson
-from pydantic import BaseModel
-
+from pydantic import BaseModel, Field
+from pydantic.generics import GenericModel
 
 __all__ = [
+    'CommonResponse',
     'CompactJsonModel',
     'AllStringCompactJsonModel',
 ]
+
+Result = TypeVar("Result", bound=BaseModel)
 
 
 def compact_dumps(__obj: dict, default, **orjson_kwargs) -> str:
@@ -61,3 +66,11 @@ class AllStringCompactJsonModel(CompactJsonModel):
         return self.__config__.json_dumps(
             dict_, default=encoder, **dumps_kwargs
         )
+
+
+class CommonResponse(GenericModel, Generic[Result]):
+    traceid: Optional[str] = Field(..., description='追踪Id')
+    code: int = Field(..., description='请求状态Id')
+    message: str = Field(..., description='请求状态信息')
+    result: Optional[Result] = Field(..., description='请求结果')
+    env: Optional[str] = Field(..., description='运行环境')

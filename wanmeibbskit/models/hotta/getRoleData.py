@@ -7,7 +7,6 @@ __all__ = [
     'CommonItem',
     'ExplorationInfo',
     'RoleData',
-    'RoleDataResponse',
     'SubExplorationInfo',
     'WeaponCate',
     'WeaponInfo',
@@ -80,11 +79,3 @@ class RoleData(BaseModel):
     weapon_info: List[WeaponInfo] = Field(..., alias='weaponInfo', description='武器信息')
     weapon_cate: List[WeaponCate] = Field(..., alias='weaponCate', description='武器属性')
     explorations: List[ExplorationInfo] = Field(..., alias='towerInfo', description='探索度信息')
-
-
-class RoleDataResponse(BaseModel):
-    traceid: Optional[str] = Field(..., description='追踪Id')
-    code: int = Field(..., description='请求状态Id')
-    message: str = Field(..., description='请求状态信息')
-    result: RoleData = Field(..., description='请求结果')
-    env: Optional[str] = Field(..., description='运行环境')
