@@ -1,9 +1,11 @@
 [tool.poetry]
 name = "wanmeibbskit"
-version = "0.2.0"
+version = "0.2.2"
 description = "Rev. request library from WanmeiBBS"
 authors = ["Wansn <2632324507@qq.com>"]
 readme = "README.md"
+repository = "https://github.com/AidaCafe/WanmeiBBSKit"
+documentation = "https://github.com/AidaCafe/WanmeiBBSKit"
 
 [tool.poetry.dependencies]
 python = "^3.8"

@@ -12,7 +12,7 @@ from wanmeibbskit.utils import secure_json_retrieve
 from wanmeibbskit.models.device_info import DeviceInfo
 
 
-class WanmeiBBSClient:
+class PerfectWorldAPI:
     _uid: Union[None, int] = None
     _token: Union[None, str] = None
 
@@ -48,7 +48,7 @@ class WanmeiBBSClient:
         self._isLogin = False
 
     @classmethod
-    def from_token(cls, uid: int, token: str, device: DeviceInfo) -> "WanmeiBBSClient":
+    def from_token(cls, uid: int, token: str, device: DeviceInfo) -> "PerfectWorldAPI":
         instance_ = cls(device=device)
         asyncio.run(instance_.login(uid=uid, token=token))
         return instance_

@@ -1,5 +1,5 @@
-from wanmeibbskit.basics.client import WanmeiBBSClient
+from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
 
 
-class HottaClient(WanmeiBBSClient):
+class HottaClient(PerfectWorldAPI):
     ...

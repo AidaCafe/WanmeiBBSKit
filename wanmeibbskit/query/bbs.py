@@ -1,11 +1,11 @@
 from typing import Union
 
-from wanmeibbskit.basics.client import WanmeiBBSClient
+from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
 from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
 
 
-class BBSApp(WanmeiBBSClient):
+class BBSApp(PerfectWorldAPI):
     @method_need_login
     async def roleList(self, uid: int) -> Union[dict, None]:
         resp_ = await self.client.post(
