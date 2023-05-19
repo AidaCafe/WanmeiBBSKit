@@ -5,6 +5,8 @@ from httpx import AsyncClient
 from httpx import Response
 
 from wanmeibbskit.basics import HYBRID_URL
+from wanmeibbskit.basics.device_generator import get_rand_device
+from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.utils import AsyncTigerTransport, URL
 from wanmeibbskit.utils import secure_json_retrieve
 from wanmeibbskit.models.device_info import DeviceInfo
@@ -19,18 +21,24 @@ class WanmeiBBSClient:
         return self._isLogin
 
     @property
-    def device_info(self) -> DeviceInfo:
+    def device_info(self) -> Union[DeviceInfo, None]:
         return self._device_info
 
     @property
-    def token(self):
+    def token(self) -> Union[str, None]:
         return self._token
 
     @property
-    def uid(self) -> int:
+    def uid(self) -> Union[int, None]:
         return self._uid
 
-    def __init__(self, device: Optional[DeviceInfo] = DeviceInfo):
+    def __init__(self, device: Optional[DeviceInfo] = None):
+        if not device:
+            device = get_rand_device(
+                app_id=TigerAPPConsts.COMMON_APP_ID,
+                channel_id=TigerAPPConsts.COMMON_CHANNEL_ID,
+                sub_app_id=TigerAPPConsts.PACKAGE_NAME
+            )
         self._device_info = device
         self.client = AsyncClient(
             base_url=HYBRID_URL.PWCGAPI,
