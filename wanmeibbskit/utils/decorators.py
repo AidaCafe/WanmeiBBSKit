@@ -6,6 +6,8 @@ __all__ = [
     'method_need_login'
 ]
 
+from typing import no_type_check
+
 
 def enforce_implementation(method):
     @wraps(method)
@@ -15,6 +17,7 @@ def enforce_implementation(method):
     return wrapper
 
 
+@no_type_check
 def method_need_login(func):
     if asyncio.iscoroutinefunction(func):
         @wraps(func)
