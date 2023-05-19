@@ -37,3 +37,19 @@ class HottaClient(BBSApp):
             }
         )
         return CommonResponse[RoleData].parse_obj(secure_json_retrieve(resp_))
+
+    @method_need_login
+    async def getSignGifts(self):
+        resp_ = await self.client.post(
+            '/shop/item/signGiftByOneAppId',
+            params={
+                "uid": self.uid,
+                "oneAppId": 1256,
+                "storeId": 10
+            },
+            headers={
+                "token": self.token
+            }
+        )
+
+        return secure_json_retrieve(resp_)
