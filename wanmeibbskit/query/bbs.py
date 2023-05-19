@@ -2,6 +2,7 @@ from typing import Union, Optional
 
 from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
 from wanmeibbskit.models.pwcgapi.article_detail import ArticleDetailData
+from wanmeibbskit.models.pwcgapi.other_articles import OtherArticles
 from wanmeibbskit.models.pwcgapi.user_unread_message import UnreadMessageData
 from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
@@ -83,7 +84,7 @@ class BBSApp(PerfectWorldAPI):
         return CommonResponse[UnreadMessageData].parse_obj(secure_json_retrieve(resp_))
 
     @method_need_login
-    async def getArticleDetail(self, article_id: int):
+    async def getArticleDetail(self, article_id: int) -> CommonResponse[ArticleDetailData]:
         resp_ = await self.client.post(
             '/article/viewDetail',
             params={
@@ -96,3 +97,22 @@ class BBSApp(PerfectWorldAPI):
         )
 
         return CommonResponse[ArticleDetailData].parse_obj(secure_json_retrieve(resp_))
+
+    @method_need_login
+    async def getOtherArticles(
+            self,
+            other_uid: int,
+            page_size: Optional[int] = 10,
+            page_num: Optional[int] = 1
+    ) -> CommonResponse[OtherArticles]:
+        resp_ = await self.client.post(
+            'article/pageOther',
+            params={
+                "uid": self.uid,
+                "otherUid": other_uid,
+                "pageSize": page_size,
+                "pageNum": page_num
+            }
+        )
+
+        return CommonResponse[OtherArticles].parse_obj(secure_json_retrieve(resp_))
