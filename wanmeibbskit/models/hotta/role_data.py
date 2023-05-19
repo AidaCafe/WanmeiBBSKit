@@ -22,10 +22,10 @@ class CommonItem(BaseModel):
 
 class Arena(BaseModel):
     key: str = Field(..., description='爬塔类型Key')
-    name: str = Field(..., description='爬塔名称')
+    name: Optional[str] = Field(..., description='爬塔名称')
     value: str = Field(..., description='爬塔层数')
     img: Optional[str] = Field(..., description='爬塔图标')
-    brief: str = Field(..., description='展示短语')
+    brief: Optional[str] = Field(..., description='展示短语')
 
 
 class WeaponInfo(BaseModel):
@@ -33,9 +33,9 @@ class WeaponInfo(BaseModel):
     level: int = Field(..., alias='lev', description='武器等级')
     star: int = Field(..., description='武器星级')
     color: int = Field(..., description='武器颜色')
-    name: str = Field(..., description='武器名称')
+    name: Optional[str] = Field(..., description='武器名称')
     img: Optional[str] = Field(..., description='武器图标Url')
-    cate_id: int = Field(..., alias='cateId')
+    cate_id: Optional[int] = Field(..., alias='cateId')
 
 
 class WeaponCate(BaseModel):
@@ -45,7 +45,7 @@ class WeaponCate(BaseModel):
 
 class SubExplorationInfo(BaseModel):
     key: str = Field(..., description='地区Key')
-    name: str = Field(..., description='地区名称')
+    name: Optional[str] = Field(..., description='地区名称')
     value: str = Field(..., description='地区探索度百分比')
     img: Optional[str] = Field(..., description='地区图标')
     current: int = Field(..., description='当前探索度计数')
@@ -55,7 +55,7 @@ class SubExplorationInfo(BaseModel):
 
 class ExplorationInfo(BaseModel):
     key: str = Field(..., description='时空Key')
-    name: str = Field(..., description='时空名称')
+    name: Optional[str] = Field(..., description='时空名称')
     value: str = Field(..., description='时空探索度百分比')
     img: Optional[str] = Field(..., description='时空图标')
     current: int = Field(..., description='当前探索度计数')
