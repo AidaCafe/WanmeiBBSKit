@@ -4,8 +4,8 @@ from httpx import AsyncHTTPTransport, HTTPTransport
 from httpx import Request, Response
 
 from wanmeibbskit.basics.sha1utils import Sha1Utils
-from wanmeibbskit.basics.device_generator import get_rand_device
 from wanmeibbskit.consts import TigerAPPConsts
+from wanmeibbskit.exceptions import DeviceInfoRequired
 from wanmeibbskit.models.device_info import DeviceInfo
 from wanmeibbskit.utils import timestamp, Params
 
@@ -18,26 +18,12 @@ __all__ = [
 class AsyncTigerTransport(AsyncHTTPTransport):
     def __init__(
             self,
-            device_info: Optional[DeviceInfo] = None,
-            app_id: Optional[int] = None,
-            channel_id: Optional[int] = None,
-            sub_app_id: Optional[str] = None,
+            device_info: DeviceInfo,
             user_agent: Optional[str] = None,
             **kwargs
     ):
         if not device_info:
-            if not app_id:
-                app_id = TigerAPPConsts.COMMON_APP_ID
-            if not channel_id:
-                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
-            if not sub_app_id:
-                sub_app_id = TigerAPPConsts.PACKAGE_NAME
-
-            device_info = get_rand_device(
-                app_id=app_id,
-                channel_id=channel_id,
-                sub_app_id=sub_app_id
-            )
+            raise DeviceInfoRequired
         self.device_info = device_info
 
         self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
@@ -68,26 +54,12 @@ class AsyncTigerTransport(AsyncHTTPTransport):
 class TigerTransport(HTTPTransport):
     def __init__(
             self,
-            device_info: Optional[DeviceInfo] = None,
-            app_id: Optional[int] = None,
-            channel_id: Optional[int] = None,
-            sub_app_id: Optional[str] = None,
+            device_info: DeviceInfo,
             user_agent: Optional[str] = None,
             **kwargs
     ):
         if not device_info:
-            if not app_id:
-                app_id = TigerAPPConsts.COMMON_APP_ID
-            if not channel_id:
-                channel_id = TigerAPPConsts.COMMON_CHANNEL_ID
-            if not sub_app_id:
-                sub_app_id = TigerAPPConsts.PACKAGE_NAME
-
-            device_info = get_rand_device(
-                app_id=app_id,
-                channel_id=channel_id,
-                sub_app_id=sub_app_id
-            )
+            raise DeviceInfoRequired
         self.device_info = device_info
 
         self.user_agent = user_agent if user_agent else TigerAPPConsts.SDK_USERAGENT
