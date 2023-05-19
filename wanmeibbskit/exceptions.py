@@ -4,3 +4,7 @@ class DeviceInfoRequired(Exception):
 
 class InvalidToken(Exception):
     pass
+
+
+class GameNotMatch(Exception):
+    pass

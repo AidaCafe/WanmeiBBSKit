@@ -124,7 +124,7 @@ class BBSApp(PerfectWorldAPI):
         :return: 已序列化的、完整的返回值, result是一个models.pwcgapi.OtherArticles对象
         """
         resp_ = await self.client.post(
-            'article/pageOther',
+            '/article/pageOther',
             params={
                 "uid": self.uid,
                 "otherUid": other_uid,
