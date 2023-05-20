@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class ImToken(BaseModel):
@@ -38,7 +38,7 @@ class Zx2ImToken(BaseModel):
 class BgVideoSnapshot(BaseModel):
     thumbnail: str
     url: str
-    compression: None
+    compression: Optional[int]
     width: int
     height: int
 
@@ -57,9 +57,9 @@ class SectionItem(BaseModel):
     rank: int
     type: int
     style_type: Optional[int] = Field(..., alias='styleType')
-    layout_type: None = Field(..., alias='layoutType')
-    h5_link: None = Field(..., alias='h5Link')
-    description: None
+    layout_type: Optional[str] = Field(..., alias='layoutType')
+    h5_link: Optional[HttpUrl] = Field(..., alias='h5Link')
+    description: Optional[str]
     discuss_count: int = Field(..., alias='discussCount')
     part_uid_count: int = Field(..., alias='partUidCount')
     can_publish: bool = Field(..., alias='canPublish')
@@ -76,9 +76,9 @@ class SectionItem1(BaseModel):
     rank: int
     type: int
     style_type: Optional[int] = Field(..., alias='styleType')
-    layout_type: None = Field(..., alias='layoutType')
-    h5_link: None = Field(..., alias='h5Link')
-    description: None
+    layout_type: Optional[str] = Field(..., alias='layoutType')
+    h5_link: Optional[HttpUrl] = Field(..., alias='h5Link')
+    description: Optional[str]
     discuss_count: int = Field(..., alias='discussCount')
     part_uid_count: int = Field(..., alias='partUidCount')
     can_publish: bool = Field(..., alias='canPublish')
@@ -146,8 +146,8 @@ class RoleItemItem(BaseModel):
     race: str
     career: str
     is_bound: int = Field(..., alias='isBound')
-    game_name: None = Field(..., alias='gameName')
-    game_icon: None = Field(..., alias='gameIcon')
+    game_name: Optional[str] = Field(..., alias='gameName')
+    game_icon: Optional[HttpUrl] = Field(..., alias='gameIcon')
 
 
 class ForumAuthority(BaseModel):
@@ -173,7 +173,7 @@ class ForumBadgesReachedItem(BaseModel):
     remark: str
     wear_status: int = Field(..., alias='wearStatus')
     reach_time: int = Field(..., alias='reachTime')
-    ext: None
+    ext: Optional[dict]
 
 
 class ForumLevelData(BaseModel):
@@ -204,9 +204,9 @@ class ForumUserInfoListItem(BaseModel):
     forum_reached_achieve_stages: Optional[int] = Field(
         ..., alias='forumReachedAchieveStages'
     )
-    dress_up: None = Field(..., alias='dressUp')
+    dress_up: Optional[bool] = Field(..., alias='dressUp')
     has_certify_creator_role: bool = Field(..., alias='hasCertifyCreatorRole')
-    certify_titles: None = Field(..., alias='certifyTitles')
+    certify_titles: Optional[str] = Field(..., alias='certifyTitles')
 
 
 class LoginData(BaseModel):
@@ -216,12 +216,12 @@ class LoginData(BaseModel):
     uid: int
     nickname: str
     avatar: str
-    wm_uid: None = Field(..., alias='wmUid')
-    bg_img: None = Field(..., alias='bgImg')
+    wm_uid: Optional[str] = Field(..., alias='wmUid')
+    bg_img: Optional[str] = Field(..., alias='bgImg')
     create_ip_attribution: str = Field(..., alias='createIpAttribution')
     desc: str
-    gender: None
-    birthday: None
+    gender: Optional[int]
+    birthday: Optional[int]
     im_token: ImToken = Field(..., alias='imToken')
     world_im_token: WorldImToken = Field(..., alias='worldImToken')
     zxqsj_im_token: ZxqsjImToken = Field(..., alias='zxqsjImToken')

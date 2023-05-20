@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional, Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class RoleItem(BaseModel):
@@ -8,7 +8,7 @@ class RoleItem(BaseModel):
     uid: int
     server_id: str = Field(..., alias='serverId')
     server_name: str = Field(..., alias='serverName')
-    role_avatar: None = Field(..., alias='roleAvatar')
+    role_avatar: Optional[HttpUrl] = Field(..., alias='roleAvatar')
     role_id: str = Field(..., alias='roleId')
     role_name: str = Field(..., alias='roleName')
     level: int
@@ -31,25 +31,34 @@ class ForumBadgesReachedItem(BaseModel):
     remark: str
     wear_status: int = Field(..., alias='wearStatus')
     reach_time: int = Field(..., alias='reachTime')
-    ext: None
+    ext: Optional[dict]
 
 
 class CertifyTitle(BaseModel):
     name: str
     icon: str
-    ext: None
+    ext: Optional[dict]
+
+
+class ForumLevelData(BaseModel):
+    name: str
+    level: int
+    level_text: str = Field(..., alias='levelText')
+    require_exp: int = Field(..., alias='requireExperiencePoints')
+    icon: Optional[str]
+    ext: Optional[dict]
 
 
 class ForumUserInfoListItem(BaseModel):
     circle_id: int = Field(..., alias='circleId')
     auditing_article_count: int = Field(..., alias='auditingArticleCount')
     role_item: RoleItem = Field(..., alias='roleItem')
-    forum_authority: None = Field(..., alias='forumAuthority')
+    forum_authority: Optional[str] = Field(..., alias='forumAuthority')
     forum_role_names: List[str] = Field(..., alias='forumRoleNames')
     forum_badges_reached: List[ForumBadgesReachedItem] = Field(
         ..., alias='forumBadgesReached'
     )
-    forum_level: None = Field(..., alias='forumLevel')
+    forum_level: Optional[ForumLevelData] = Field(..., alias='forumLevel')
     forum_virtual_currency_balance: int = Field(
         ..., alias='forumVirtualCurrencyBalance'
     )
@@ -57,7 +66,7 @@ class ForumUserInfoListItem(BaseModel):
         ..., alias='forumExperiencePointsBalance'
     )
     forum_reached_achieve_stages: int = Field(..., alias='forumReachedAchieveStages')
-    dress_up: None = Field(..., alias='dressUp')
+    dress_up: Optional[bool] = Field(..., alias='dressUp')
     has_certify_creator_role: bool = Field(..., alias='hasCertifyCreatorRole')
     certify_titles: List[CertifyTitle] = Field(..., alias='certifyTitles')
 
@@ -66,8 +75,8 @@ class OtherDetailData(BaseModel):
     uid: int
     nickname: str
     avatar: str
-    wm_uid: None = Field(..., alias='wmUid')
-    bg_img: None = Field(..., alias='bgImg')
+    wm_uid: Optional[str] = Field(..., alias='wmUid')
+    bg_img: Optional[HttpUrl] = Field(..., alias='bgImg')
     create_ip_attribution: str = Field(..., alias='createIpAttribution')
     desc: str
     gender: int
@@ -82,8 +91,8 @@ class OtherDetailData(BaseModel):
     article_view_count: int = Field(..., alias='articleViewCount')
     comment_count: int = Field(..., alias='commentCount')
     show_im_button: bool = Field(..., alias='showImButton')
-    area_item: None = Field(..., alias='areaItem')
-    avatar_frame: None = Field(..., alias='avatarFrame')
+    area_item: Optional[Any] = Field(..., alias='areaItem')
+    avatar_frame: Optional[HttpUrl] = Field(..., alias='avatarFrame')
     forum_user_info_list: List[ForumUserInfoListItem] = Field(
         ..., alias='forumUserInfoList'
     )

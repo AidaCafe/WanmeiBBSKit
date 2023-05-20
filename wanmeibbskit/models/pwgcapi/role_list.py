@@ -1,11 +1,11 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
 
 class GameRole(BaseModel):
     one_app_id: int = Field(..., alias='oneAppId')
-    client_game_id: None = Field(..., alias='clientGameId')
+    client_game_id: Optional[int] = Field(..., alias='clientGameId')
     server_id: str = Field(..., alias='serverId')
     server_name: str = Field(..., alias='serverName')
     game_name: str = Field(..., alias='gameName')

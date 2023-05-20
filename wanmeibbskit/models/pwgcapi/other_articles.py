@@ -1,6 +1,6 @@
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class ImgItem(BaseModel):
@@ -20,7 +20,7 @@ class Snapshot(BaseModel):
 
 
 class RoleItem(BaseModel):
-    one_app_id: None = Field(..., alias='oneAppId')
+    one_app_id: Optional[int] = Field(..., alias='oneAppId')
     uid: int
     server_id: str = Field(..., alias='serverId')
     server_name: str = Field(..., alias='serverName')
@@ -28,11 +28,11 @@ class RoleItem(BaseModel):
     role_id: str = Field(..., alias='roleId')
     role_name: str = Field(..., alias='roleName')
     level: int
-    gender: None
-    occupation: None
-    race: None
-    career: None
-    is_bound: None = Field(..., alias='isBound')
+    gender: Optional[int]
+    occupation: Optional[Any]
+    race: Optional[Any]
+    career: Optional[Any]
+    is_bound: Optional[bool] = Field(..., alias='isBound')
     game_name: str = Field(..., alias='gameName')
     game_icon: str = Field(..., alias='gameIcon')
 
@@ -48,9 +48,9 @@ class UserInfo(BaseModel):
     nickname: str
     avatar: str
     vip_level: int = Field(..., alias='vipLevel')
-    wm_uid: None = Field(..., alias='wmUid')
-    points: None
-    bg_img: None = Field(..., alias='bgImg')
+    wm_uid: Optional[str] = Field(..., alias='wmUid')
+    points: Optional[int]
+    bg_img: Optional[HttpUrl] = Field(..., alias='bgImg')
     create_ip_attribution: str = Field(..., alias='createIpAttribution')
     badge_img: None = Field(..., alias='badgeImg')
     avatar_frame: None = Field(..., alias='avatarFrame')
@@ -60,8 +60,8 @@ class UserInfo(BaseModel):
     birthday: int
     role_item: RoleItem = Field(..., alias='roleItem')
     forum_role_items: None = Field(..., alias='forumRoleItems')
-    forum_level: None = Field(..., alias='forumLevel')
-    forum_badge: None = Field(..., alias='forumBadge')
+    forum_level: Optional[int] = Field(..., alias='forumLevel')
+    forum_badge: Optional[HttpUrl] = Field(..., alias='forumBadge')
     forum_badges: List = Field(..., alias='forumBadges')
     certify_titles: List[CertifyTitle] = Field(..., alias='certifyTitles')
     is_followed: bool = Field(..., alias='isFollowed')
@@ -74,7 +74,7 @@ class UserInfo(BaseModel):
 class BgVideoSnapshot(BaseModel):
     thumbnail: str
     url: str
-    compression: None
+    compression: Optional[str]
     width: int
     height: int
 
@@ -94,7 +94,7 @@ class CircleItem(BaseModel):
     guide_bg_img: str = Field(..., alias='guideBgImg')
     bg_video: str = Field(..., alias='bgVideo')
     bg_video_snapshot: BgVideoSnapshot = Field(..., alias='bgVideoSnapshot')
-    top_bg_color: None = Field(..., alias='topBgColor')
+    top_bg_color: Optional[str] = Field(..., alias='topBgColor')
     score: int
     follower_count: int = Field(..., alias='followerCount')
     moment_count: int = Field(..., alias='momentCount')
@@ -102,7 +102,7 @@ class CircleItem(BaseModel):
     article_unread_count: int = Field(..., alias='articleUnreadCount')
     is_recommend: int = Field(..., alias='isRecommend')
     is_followed: int = Field(..., alias='isFollowed')
-    follow_day_num: None = Field(..., alias='followDayNum')
+    follow_day_num: Optional[int] = Field(..., alias='followDayNum')
 
 
 class SectionItem(BaseModel):
@@ -114,13 +114,13 @@ class SectionItem(BaseModel):
     rank: int
     type: int
     style_type: int = Field(..., alias='styleType')
-    layout_type: None = Field(..., alias='layoutType')
-    h5_link: None = Field(..., alias='h5Link')
-    description: None
+    layout_type: Optional[int] = Field(..., alias='layoutType')
+    h5_link: Optional[HttpUrl] = Field(..., alias='h5Link')
+    description: Optional[str]
     discuss_count: int = Field(..., alias='discussCount')
     part_uid_count: int = Field(..., alias='partUidCount')
     can_publish: bool = Field(..., alias='canPublish')
-    ext: None
+    ext: Optional[dict]
     can_sort: bool = Field(..., alias='canSort')
 
 
@@ -139,7 +139,7 @@ class TopicItem(BaseModel):
     is_default: int = Field(..., alias='isDefault')
     topic_type: int = Field(..., alias='topicType')
     rule: None
-    ext: None
+    ext: Optional[dict]
     score: int
 
 

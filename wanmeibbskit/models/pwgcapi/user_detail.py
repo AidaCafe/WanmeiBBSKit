@@ -1,6 +1,6 @@
-from typing import List, Optional
+from typing import List, Optional, Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class RoleItemItem(BaseModel):
@@ -8,7 +8,7 @@ class RoleItemItem(BaseModel):
     uid: int
     server_id: str = Field(..., alias='serverId')
     server_name: str = Field(..., alias='serverName')
-    role_avatar: None = Field(..., alias='roleAvatar')
+    role_avatar: Optional[HttpUrl] = Field(..., alias='roleAvatar')
     role_id: str = Field(..., alias='roleId')
     role_name: str = Field(..., alias='roleName')
     level: int
@@ -75,9 +75,9 @@ class ForumUserInfoListItem(BaseModel):
     forum_reached_achieve_stages: Optional[int] = Field(
         ..., alias='forumReachedAchieveStages'
     )
-    dress_up: None = Field(..., alias='dressUp')
+    dress_up: Optional[str] = Field(..., alias='dressUp')
     has_certify_creator_role: bool = Field(..., alias='hasCertifyCreatorRole')
-    certify_titles: None = Field(..., alias='certifyTitles')
+    certify_titles: Optional[str] = Field(..., alias='certifyTitles')
 
 
 class UserFollowForumListItem(BaseModel):
@@ -91,9 +91,9 @@ class UserFollowForumListItem(BaseModel):
 
 
 class Watermark(BaseModel):
-    thumbnail: None
+    thumbnail: Optional[HttpUrl]
     url: str
-    compression: None
+    compression: Optional[str]
     width: int
     height: int
 
@@ -117,9 +117,9 @@ class UserDetailData(BaseModel):
     article_count: int = Field(..., alias='articleCount')
     article_view_count: int = Field(..., alias='articleViewCount')
     comment_count: int = Field(..., alias='commentCount')
-    show_im_button: None = Field(..., alias='showImButton')
-    area_item: None = Field(..., alias='areaItem')
-    avatar_frame: None = Field(..., alias='avatarFrame')
+    show_im_button: Optional[Any] = Field(..., alias='showImButton')
+    area_item: Optional[Any] = Field(..., alias='areaItem')
+    avatar_frame: Optional[Any] = Field(..., alias='avatarFrame')
     forum_user_info_list: List[ForumUserInfoListItem] = Field(
         ..., alias='forumUserInfoList'
     )
