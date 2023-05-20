@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 class ImgItem(BaseModel):
@@ -22,7 +22,7 @@ class Snapshot(BaseModel):
 class CertifyTitle(BaseModel):
     name: str
     icon: str
-    ext: None
+    ext: Optional[dict]
 
 
 class UserInfo(BaseModel):
@@ -30,20 +30,20 @@ class UserInfo(BaseModel):
     nickname: str
     avatar: str
     vip_level: int = Field(..., alias='vipLevel')
-    wm_uid: None = Field(..., alias='wmUid')
-    points: None
+    wm_uid: Optional[str] = Field(..., alias='wmUid')
+    points: Optional[int]
     bg_img: str = Field(..., alias='bgImg')
     create_ip_attribution: str = Field(..., alias='createIpAttribution')
     badge_img: str = Field(..., alias='badgeImg')
-    avatar_frame: None = Field(..., alias='avatarFrame')
-    dress_up: None = Field(..., alias='dressUp')
+    avatar_frame: Optional[HttpUrl] = Field(..., alias='avatarFrame')
+    dress_up: Optional[str] = Field(..., alias='dressUp')
     desc: str
     gender: int
-    birthday: None
+    birthday: Optional[int]
     role_item: None = Field(..., alias='roleItem')
     forum_role_items: None = Field(..., alias='forumRoleItems')
-    forum_level: None = Field(..., alias='forumLevel')
-    forum_badge: None = Field(..., alias='forumBadge')
+    forum_level: Optional[int] = Field(..., alias='forumLevel')
+    forum_badge: Optional[HttpUrl] = Field(..., alias='forumBadge')
     forum_badges: List = Field(..., alias='forumBadges')
     certify_titles: List[CertifyTitle] = Field(..., alias='certifyTitles')
     is_followed: bool = Field(..., alias='isFollowed')
@@ -56,7 +56,7 @@ class UserInfo(BaseModel):
 class BgVideoSnapshot(BaseModel):
     thumbnail: str
     url: str
-    compression: None
+    compression: Optional[str]
     width: int
     height: int
 
@@ -84,7 +84,7 @@ class CircleItem(BaseModel):
     article_unread_count: int = Field(..., alias='articleUnreadCount')
     is_recommend: int = Field(..., alias='isRecommend')
     is_followed: int = Field(..., alias='isFollowed')
-    follow_day_num: None = Field(..., alias='followDayNum')
+    follow_day_num: Optional[int] = Field(..., alias='followDayNum')
 
 
 class SectionItem(BaseModel):
@@ -97,12 +97,12 @@ class SectionItem(BaseModel):
     type: int
     style_type: None = Field(..., alias='styleType')
     layout_type: None = Field(..., alias='layoutType')
-    h5_link: None = Field(..., alias='h5Link')
-    description: None
+    h5_link: Optional[HttpUrl] = Field(..., alias='h5Link')
+    description: Optional[str]
     discuss_count: int = Field(..., alias='discussCount')
     part_uid_count: int = Field(..., alias='partUidCount')
     can_publish: bool = Field(..., alias='canPublish')
-    ext: None
+    ext: Optional[dict]
     can_sort: bool = Field(..., alias='canSort')
 
 
@@ -113,7 +113,7 @@ class ArticleDetailData(BaseModel):
     type: int
     content: str
     img_items: List[ImgItem] = Field(..., alias='imgItems')
-    video: None
+    video: Optional[HttpUrl]
     snapshot: Snapshot
     snapshot_custom: None = Field(..., alias='snapshotCustom')
     user_info: UserInfo = Field(..., alias='userInfo')
