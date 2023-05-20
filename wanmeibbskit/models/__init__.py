@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import cast
 from typing import (
     AbstractSet,
     Any,
@@ -8,7 +9,6 @@ from typing import (
     Optional,
     TypeVar
 )
-from typing import cast
 
 import orjson
 from pydantic import BaseModel, Field

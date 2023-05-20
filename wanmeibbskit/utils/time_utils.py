@@ -30,5 +30,4 @@ def timeit(func):
         time_end_ = get_time()
         print(f'{func_name}: {time_end_ - time_start_}')
         return result_
-
     return wrapper

@@ -8,7 +8,6 @@ __all__ = [
 DEFAULT_LOGIN_TYPE = 16
 DEFAULT_LOGIN_AREA = 1
 
-
 class TigerAPPConsts:
     BUILD_VERSION = 105
     COMMON_APP_ID = 10021

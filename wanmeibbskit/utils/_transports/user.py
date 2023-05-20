@@ -6,8 +6,8 @@ from httpx import Request, Response
 from wanmeibbskit.basics.md5utils import MD5Utils
 from wanmeibbskit.consts import TigerAPPConsts
 from wanmeibbskit.exceptions import DeviceInfoRequired
-from wanmeibbskit.models.device_info import DeviceInfo
 from wanmeibbskit.utils import Params, timestamp
+from wanmeibbskit.models.device_info import DeviceInfo
 
 __all__ = [
     'UserMgrTransport',

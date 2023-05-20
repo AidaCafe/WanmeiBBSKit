@@ -1,12 +1,13 @@
 import random
 from binascii import hexlify
+from functools import cache
 from os import urandom
 from string import ascii_uppercase, digits
 from typing import Optional
 
 from wanmeibbskit.consts import TigerAPPConsts
-from wanmeibbskit.models.device_info import DeviceBrands
 from wanmeibbskit.models.device_info import DeviceInfo
+from wanmeibbskit.models.device_info import DeviceBrands
 from wanmeibbskit.models.device_info import OSType, OSVersionRange
 
 RAND_CHARS = f'{ascii_uppercase}{digits}'
