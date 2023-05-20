@@ -25,9 +25,9 @@ class MD5Utils:  # com.wanmei.tiger.zx2.utils.h
         :return: 哈希结果
         """
         text = ''.join(
-                param_.split('=')[1] for param_ in
-                sorted(params_string.split('&'))
-            )
+            param_.split('=')[1] for param_ in
+            sorted(params_string.split('&'))
+        )
         print(text)
         return MD5Utils.md5Hash(
             text + salt

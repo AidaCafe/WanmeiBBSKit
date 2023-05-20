@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     import orjson
 
-    while not (PHONE_NUMBER := 0): # 获取手机号
+    while not (PHONE_NUMBER := 0):  # 获取手机号
         if (phone_number_ := input('输入手机号:')).isdigit():
             PHONE_NUMBER = int(phone_number_)
             break

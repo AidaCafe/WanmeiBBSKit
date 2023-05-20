@@ -1,9 +1,8 @@
 # WanmeiBBSKit
 
 > Rev. API Wrapper of **perfect Game Community**, a.k.a **Douliu Community**
-> 
+>
 > **Package Name:** `com.wanmei.tiger`
-
 
 ### Features
 
@@ -11,7 +10,6 @@
 - [ ] Easy-to-use forum API encapsulation
 - [x] Automatically add `sign` fields to the request payload
 - [ ] Multiple authentication methods: Cookie, Token, SMS
-
 
 ### Tools
 

@@ -1,6 +1,5 @@
-from typing import Any, Optional, Union, Protocol
 from json import JSONDecodeError
-
+from typing import Any, Optional, Union, Protocol
 
 __all__ = [
     'secure_json_retrieve',

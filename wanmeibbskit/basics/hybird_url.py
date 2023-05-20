@@ -1,6 +1,5 @@
 from wanmeibbskit.utils import URL
 
-
 PWCGAPI = URL('https://pwgcapi.wanmei.com/')
 USERAPI = URL('https://user.laohu.com/')
 TOKEN_TO_COOKIE = URL('http://i.laohu.com/tokenToCookie?')

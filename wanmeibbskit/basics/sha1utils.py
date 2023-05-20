@@ -5,11 +5,11 @@ from typing import Optional
 import orjson
 from cryptography.exceptions import InvalidKey
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.serialization import load_der_private_key
-from cryptography.hazmat.primitives.serialization import load_der_public_key
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
+from cryptography.hazmat.primitives.serialization import load_der_private_key
+from cryptography.hazmat.primitives.serialization import load_der_public_key
 
 __all__ = ['Sha1Utils']
 
@@ -62,7 +62,8 @@ class Sha1Utils:
         )
 
     @staticmethod
-    def loadPrivateKey(b64_private_key: str, password: Optional[bytes] = None) -> RSAPrivateKey:  # com.wanmei.basic.e.s.d
+    def loadPrivateKey(b64_private_key: str,
+                       password: Optional[bytes] = None) -> RSAPrivateKey:  # com.wanmei.basic.e.s.d
         """
         将base64编码的PKCS8格式的字符串转换为PrivateKey对象
         :param b64_private_key: base64编码的PKCS8格式的私钥字符串

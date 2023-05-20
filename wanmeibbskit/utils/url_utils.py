@@ -3,7 +3,6 @@ from typing import Any, List, Mapping, Optional, Sequence, Tuple, Union
 import httpx
 import orjson
 
-
 PrimitiveData = Optional[Union[str, int, float, bool]]
 QueryParamTypes = Union[
     "Params",
