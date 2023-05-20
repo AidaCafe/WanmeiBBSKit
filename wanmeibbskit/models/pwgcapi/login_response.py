@@ -176,6 +176,15 @@ class ForumBadgesReachedItem(BaseModel):
     ext: None
 
 
+class ForumLevelData(BaseModel):
+    name: str
+    level: int
+    level_text: str = Field(..., alias='levelText')
+    require_exp: int = Field(..., alias='requireExperiencePoints')
+    icon: Optional[str]
+    ext: dict
+
+
 class ForumUserInfoListItem(BaseModel):
     circle_id: int = Field(..., alias='circleId')
     auditing_article_count: int = Field(..., alias='auditingArticleCount')
@@ -185,7 +194,7 @@ class ForumUserInfoListItem(BaseModel):
     forum_badges_reached: List[ForumBadgesReachedItem] = Field(
         ..., alias='forumBadgesReached'
     )
-    forum_level: None = Field(..., alias='forumLevel')
+    forum_level: Optional[ForumLevelData] = Field(..., alias='forumLevel')
     forum_virtual_currency_balance: int = Field(
         ..., alias='forumVirtualCurrencyBalance'
     )

@@ -56,7 +56,7 @@ class SubExplorationInfo(BaseModel):
 class ExplorationInfo(BaseModel):
     key: str = Field(..., description='时空Key')
     name: Optional[str] = Field(..., description='时空名称')
-    value: str = Field(..., description='时空探索度百分比')
+    value: float = Field(..., description='时空探索度百分比')
     img: Optional[str] = Field(..., description='时空图标')
     current: int = Field(..., description='当前探索度计数')
     total: int = Field(..., description='满探索度计数')

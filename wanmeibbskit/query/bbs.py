@@ -1,5 +1,7 @@
 from typing import Optional
 
+import orjson
+
 from wanmeibbskit.basics.api.pwcg import PerfectWorldAPI
 from wanmeibbskit.utils.safely_getters import secure_json_retrieve
 from wanmeibbskit.utils.decorators import method_need_login
@@ -48,7 +50,6 @@ class BBSApp(PerfectWorldAPI):
                 "token": self.token
             }
         )
-
         return CommonResponse[UserDetailData].parse_obj(secure_json_retrieve(resp_))
 
     @method_need_login
