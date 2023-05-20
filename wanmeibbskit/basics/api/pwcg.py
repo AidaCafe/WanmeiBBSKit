@@ -16,23 +16,40 @@ from wanmeibbskit.utils import secure_json_retrieve
 
 class PerfectWorldAPI:
     _token: Union[str, None] = None
+    _uid: Union[int, None] = None
     _login_data: Union[LoginData, None] = None
 
     @property
     def isLogin(self) -> bool:
-        return self._login_data is not None
+        """
+        是否登录
+        :return: bool值
+        """
+        return not (self._token or self._uid)
 
     @property
-    def device_info(self) -> Union[DeviceInfo, None]:
+    def device_info(self) -> DeviceInfo:
+        """
+        登录的设备信息
+        :return: DeviceInfo对象
+        """
         return self._device_info
 
     @property
     def token(self) -> Union[str, None]:
+        """
+        登录token
+        :return: 一个token字符串
+        """
         return self._token
 
     @property
     def uid(self) -> Union[int, None]:
-        return self._login_data.uid
+        """
+        登录uid
+        :return: 逗留社区用户id，整数
+        """
+        return self._uid
 
     def __init__(self, device: Optional[DeviceInfo] = None):
         self._token = None
@@ -52,8 +69,34 @@ class PerfectWorldAPI:
 
     @classmethod
     async def from_token(cls, uid: int, token: str, device: DeviceInfo) -> "PerfectWorldAPI":
+        """
+        登录并校验uid和token
+        :param uid: 逗留用户id
+        :param token: 逗留token
+        :param device: 获得token时使用的设备信息
+        :return: PerfectWorldAPI对象
+        """
         instance_ = cls(device=device)
-        await instance_.login(uid=uid, token=token)
+        login_data_ = await instance_.login(uid=uid, token=token)
+        if login_data_.result:
+            instance_._login_data = login_data_.result
+            instance_._uid = login_data_.result.uid
+            instance_._token = token
+            return instance_
+        raise InvalidToken('Not a valid login token!')
+
+    @classmethod
+    async def login_without_verify(cls, uid: int, token: str, device: DeviceInfo) -> "PerfectWorldAPI":
+        """
+        登录但不校验uid和token
+        :param uid: 逗留用户id
+        :param token: 逗留token
+        :param device: 获得token时使用的设备信息
+        :return: PerfectWorldAPI对象
+        """
+        instance_ = cls(device=device)
+        instance_._uid = uid
+        instance_._token = token
         return instance_
 
     async def request(
@@ -71,6 +114,12 @@ class PerfectWorldAPI:
         )
 
     async def login(self, uid: int, token: str) -> CommonResponse[LoginData]:
+        """
+        登录接口封装
+        :param uid: 逗留uid
+        :param token: 逗留token
+        :return: 一个CommonResponse[LoginData]对象
+        """
         resp_ = await self.client.post(
             '/login/v2',
             params={
@@ -82,9 +131,4 @@ class PerfectWorldAPI:
                 "token": token
             }
         )
-        data_ = CommonResponse[LoginData].parse_obj(secure_json_retrieve(resp_))
-        if data_.result:
-            self._login_data = data_.result
-            self._token = token
-            return data_
-        raise InvalidToken('Not a valid login token!')
+        return CommonResponse[LoginData].parse_obj(secure_json_retrieve(resp_))

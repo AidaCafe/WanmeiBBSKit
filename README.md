@@ -7,14 +7,12 @@
 ### Features
 
 - [x] Easy-to-use SHA-1/MD5 encryption
-- [ ] Easy-to-use forum API encapsulation
+- [x] Easy-to-use forum API encapsulation
 - [x] Automatically add `sign` fields to the request payload
-- [ ] Multiple authentication methods: Cookie, Token, SMS
+- [x] Multiple authentication methods: ~~Cookie~~, Token, SMS
 
-### Tools
+### Todo
 
-- HttpCanary
-- frida
-- frida-dexumper
-- Jadx
-- medusa
+- [ ] CLI
+- [ ] More accurate model declaration
+- [ ] More API Wrapper
