@@ -161,3 +161,7 @@ cython_debug/
 
 # tests
 dev_test/
+
+# examples
+examples/LOGIN_STATE
+examples/device.json
